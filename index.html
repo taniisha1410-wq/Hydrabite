@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydabite — Water &amp; Meal Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <nav class="rail" aria-label="Main navigation">
+    <div class="rail-mark">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 2C15 2 5 13.5 5 19.5C5 25.02 9.48 28 15 28C20.52 28 25 25.02 25 19.5C25 13.5 15 2 15 2Z" fill="#3F7D6C"/>
+      </svg>
+      <span>Hydrabite</span>
+    </div>
+    <button class="rail-btn is-active" data-panel="today">
+      <span class="rail-dot"></span> Today
+    </button>
+    <button class="rail-btn" data-panel="water">
+      <span class="rail-dot"></span> Water
+    </button>
+    <button class="rail-btn" data-panel="meals">
+      <span class="rail-dot"></span> Meal plan
+    </button>
+    <button class="rail-btn" data-panel="profile">
+      <span class="rail-dot"></span> Profile &amp; budget
+    </button>
+    <div class="rail-foot">Data stays on this device unless you connect a backend.</div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stage">
+
+    <!-- TODAY -->
+    <section class="panel is-active" id="panel-today">
+      <header class="panel-head">
+        <h1>Good to see you.</h1>
+        <p class="sub">Here's where your hydration and food plan stand right now.</p>
+      </header>
+
+      <div class="grid-today">
+        <div class="card card-water-mini">
+          <div class="bottle" id="bottle-mini">
+            <svg viewBox="0 0 120 220" width="90" height="165">
+              <defs>
+                <clipPath id="bottleClipMini"><path d="M40 8 H80 V34 C80 40 92 42 92 58 V196 C92 208 82 216 70 216 H50 C38 216 28 208 28 196 V58 C28 42 40 40 40 34 Z"/></clipPath>
+              </defs>
+              <path d="M40 8 H80 V34 C80 40 92 42 92 58 V196 C92 208 82 216 70 216 H50 C38 216 28 208 28 196 V58 C28 42 40 40 40 34 Z" fill="none" stroke="#1B1B18" stroke-width="3"/>
+              <rect id="water-fill-mini" clip-path="url(#bottleClipMini)" x="20" y="216" width="100" height="0" fill="#3F7D6C"/>
+            </svg>
+          </div>
+          <div class="card-water-mini-info">
+            <span class="label">Water today</span>
+            <span class="big-num"><span id="water-count-today">0</span> / <span id="water-goal-today">8</span> glasses</span>
+            <button class="btn btn-primary btn-sm" id="quick-add-water">+ Add a glass</button>
+          </div>
+        </div>
+
+        <div class="card card-macros">
+          <span class="label">Today's targets</span>
+          <ul class="macro-list" id="today-macro-list">
+            <li><span>Calories</span><strong id="m-cal">—</strong></li>
+            <li><span>Protein</span><strong id="m-protein">—</strong></li>
+            <li><span>Carbs</span><strong id="m-carb">—</strong></li>
+            <li><span>Fat</span><strong id="m-fat">—</strong></li>
+          </ul>
+          <p class="hint" id="macro-hint">Fill in your profile to see personal targets.</p>
+        </div>
+
+        <div class="card card-next-meal" id="next-meal-card">
+          <span class="label">Next up</span>
+          <p class="empty-note">No meal plan yet. Head to <button class="link-btn" data-goto="meals">Meal plan</button> to generate one.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER -->
+    <section class="panel" id="panel-water">
+      <header class="panel-head">
+        <h1>Water reminder</h1>
+        <p class="sub">Set a goal, log glasses as you go, and get nudged if you fall behind.</p>
+      </header>
+
+      <div class="grid-water">
+        <div class="card card-bottle-big">
+          <div class="bottle-big" id="bottle-big">
+            <svg viewBox="0 0 160 300" width="150" height="280">
+              <defs>
+                <clipPath id="bottleClipBig"><path d="M55 10 H105 V45 C105 53 122 56 122 76 V262 C122 278 108 290 92 290 H68 C52 290 38 278 38 262 V76 C38 56 55 53 55 45 Z"/></clipPath>
+              </defs>
+              <path d="M55 10 H105 V45 C105 53 122 56 122 76 V262 C122 278 108 290 92 290 H68 C52 290 38 278 38 262 V76 C38 56 55 53 55 45 Z" fill="none" stroke="#1B1B18" stroke-width="3.5"/>
+              <rect id="water-fill-big" clip-path="url(#bottleClipBig)" x="30" y="290" width="100" height="0" fill="#3F7D6C"/>
+              <line x1="38" y1="230" x2="30" y2="230" stroke="#1B1B18" stroke-width="2"/>
+              <line x1="38" y1="170" x2="30" y2="170" stroke="#1B1B18" stroke-width="2"/>
+              <line x1="38" y1="110" x2="30" y2="110" stroke="#1B1B18" stroke-width="2"/>
+            </svg>
+          </div>
+          <p class="bottle-caption"><span id="water-count-big">0</span> of <span id="water-goal-big">8</span> glasses (~<span id="water-ml">0</span> ml)</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="add-glass">+ Add glass</button>
+            <button class="btn btn-ghost" id="remove-glass">− Remove</button>
+          </div>
+        </div>
+
+        <div class="card card-water-settings">
+          <h2>Reminder settings</h2>
+          <label class="field">
+            <span>Daily goal (glasses of 250 ml)</span>
+            <input type="number" id="goal-input" min="4" max="20" value="8">
+          </label>
+          <label class="field">
+            <span>Remind me every</span>
+            <select id="interval-input">
+              <option value="30">30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60" selected>60 minutes</option>
+              <option value="90">90 minutes</option>
+              <option value="120">2 hours</option>
+            </select>
+          </label>
+          <label class="field field-inline">
+            <input type="checkbox" id="reminders-toggle">
+            <span>Turn on reminders (browser notifications)</span>
+          </label>
+          <p class="hint" id="notif-status">Reminders are off.</p>
+          <div class="log-list">
+            <span class="label">Today's log</span>
+            <ul id="water-log-list" class="log-ul"><li class="empty-note">No glasses logged yet.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEALS -->
+    <section class="panel" id="panel-meals">
+      <header class="panel-head">
+        <h1>Meal plan</h1>
+        <p class="sub">Generated from your profile, health goal, and daily food budget.</p>
+      </header>
+
+      <div class="meal-controls card">
+        <div>
+          <span class="label">Today's food budget</span>
+          <strong id="budget-display">—</strong>
+        </div>
+        <div>
+          <span class="label">Goal</span>
+          <strong id="goal-display">—</strong>
+        </div>
+        <button class="btn btn-primary" id="generate-plan-btn">Generate today's plan</button>
+      </div>
+
+      <div id="plan-status" class="plan-status" hidden></div>
+
+      <div id="meal-plan-output" class="meal-grid"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="panel" id="panel-profile">
+      <header class="panel-head">
+        <h1>Profile &amp; budget</h1>
+        <p class="sub">This shapes your calorie and macro targets, and what the meal planner suggests.</p>
+      </header>
+
+      <form class="card form-card" id="profile-form">
+        <div class="form-grid">
+          <label class="field">
+            <span>Age</span>
+            <input type="number" name="age" min="10" max="100" required value="28">
+          </label>
+          <label class="field">
+            <span>Sex</span>
+            <select name="sex">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other / prefer not to say</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Weight (kg)</span>
+            <input type="number" name="weight" min="30" max="250" step="0.1" required value="65">
+          </label>
+          <label class="field">
+            <span>Height (cm)</span>
+            <input type="number" name="height" min="120" max="230" required value="168">
+          </label>
+          <label class="field">
+            <span>Activity level</span>
+            <select name="activity">
+              <option value="sedentary">Sedentary (desk job, little exercise)</option>
+              <option value="light">Light (1–3 workouts/week)</option>
+              <option value="moderate" selected>Moderate (3–5 workouts/week)</option>
+              <option value="active">Active (6–7 workouts/week)</option>
+              <option value="athlete">Very active (physical job or 2x/day training)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Primary health goal</span>
+            <select name="goal">
+              <option value="maintain">Maintain weight</option>
+              <option value="lose_fat">Lose fat</option>
+              <option value="gain_muscle">Build muscle</option>
+              <option value="improve_energy">Improve energy / general health</option>
+              <option value="manage_condition">Manage a health condition</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Diet preference</span>
+            <select name="diet">
+              <option value="none">No restriction</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="eggetarian">Eggetarian</option>
+              <option value="pescatarian">Pescatarian</option>
+              <option value="low_carb">Low-carb</option>
+              <option value="gluten_free">Gluten-free</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Allergies or foods to avoid</span>
+            <input type="text" name="allergies" placeholder="e.g. peanuts, shellfish">
+          </label>
+          <label class="field">
+            <span>Health notes (optional)</span>
+            <input type="text" name="conditions" placeholder="e.g. prediabetic, high blood pressure, PCOS">
+          </label>
+          <label class="field">
+            <span>Currency</span>
+            <select name="currency">
+              <option value="INR" selected>₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Daily food budget</span>
+            <input type="number" name="budget" min="0" step="1" required value="300">
+          </label>
+          <label class="field">
+            <span>Meals per day</span>
+            <select name="meals_per_day">
+              <option value="3">3 (breakfast, lunch, dinner)</option>
+              <option value="4">4 (+1 snack)</option>
+              <option value="5" selected>5 (+2 snacks)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Cuisine preference</span>
+            <input type="text" name="cuisine" placeholder="e.g. North Indian, Mediterranean, no preference">
+          </label>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary">Save profile</button>
+          <span class="hint" id="profile-saved-note"></span>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
