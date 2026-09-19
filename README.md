@@ -1,4 +1,4 @@
-# Springline — Water Reminder & Budget-Aware Meal Planner
+# Hydrabite — Water Reminder & Budget-Aware Meal Planner
 
 A small full-stack app:
 
